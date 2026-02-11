@@ -1,0 +1,15 @@
+
+<div>
+    <app-tasks-create (taskAdded)="addTask($event)"></app-tasks-create>
+    <button (click)="loadTaskById('3')">task</button>
+</div>
+
+<div>
+    @for (task of tasks(); track $index) {
+        <li>{{$index+1}}</li>
+        <app-task-card [task]="task" (taskDelete)="deleteTask($event)"></app-task-card>
+        <app-tasks-edit [id]="task.id" (taskUpdate)="updateTask($event)"></app-tasks-edit>
+    }@empty {
+        <li>Task Empty !!</li>
+    }
+</div>

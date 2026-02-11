@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Code front-end",
+      "completed": true
+    },
+    {
+      "id": "2",
+      "title": "Code back-end",
+      "completed": false
+    },
+     {
+      "id": "3",
+      "title": "Code full-end",
+      "completed": false
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+
+<div>
+    <h4>{{ task().title }}</h4>
+    <span>Status : {{ task().completed ? '✅ Completed  ' : 'In progress  ' }}</span>
+    <button (click)="onDelete()">Delete 🗑️</button>
+</div>

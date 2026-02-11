@@ -1,0 +1,12 @@
+<p>tasks-edit works!</p>
+
+<form [formGroup]="taskForm" (ngSubmit)="submit()">
+    <input type="text" formControlName="title" placeholder="Task Title">
+
+    <label>
+        <input type="checkbox" formControlName="completed" >
+        Completed
+    </label>
+
+    <button type="submit" [disabled]="taskForm.invalid">Edit Task</button>
+</form>
