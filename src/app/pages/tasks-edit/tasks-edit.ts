@@ -1,6 +1,7 @@
-import { Component, inject, Injector, input, output } from '@angular/core';
+import { Component, inject, Injector, input, OnInit, output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Task } from '../../services/task';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tasks-edit',
@@ -9,30 +10,35 @@ import { Task } from '../../services/task';
   templateUrl: './tasks-edit.html',
   styleUrl: './tasks-edit.css',
 })
-export class TasksEdit {
+export class TasksEdit implements OnInit{
+  private router = inject(ActivatedRoute);
+  private navigate = inject(Router);
   private fb = inject(FormBuilder);
   private taskservice = inject(Task);
+  private taskId!: string;
   
+  ngOnInit(): void {
+    this.taskId = String(this.router.snapshot.paramMap.get('id'));
+    this.loadTaskById(this.taskId);
+  }
+
   taskForm = this.fb.group({
     title : ['',[Validators.required,Validators.minLength(3)]],
     completed : [false]
   })
 
-  updatedtask = output<{title:string,completed:boolean}>();
-  id = input<string>();
-
-  loadTaskById(id:string){
+  loadTaskById(id : string){
     this.taskservice.getTaskById(id).subscribe(task =>
-      this.taskForm.setValue(task) 
-  );   
+      this.taskForm.patchValue({ 
+        completed : task.completed,
+        title : task.title
+      }));   
   }
   
-  taskUpdate(data :  {title:string,completed:boolean}){
-
-  }
-
-  submit(){
-    
+  submit(){    
+    this.taskservice.updateTask(this.taskId,this.taskForm.value as task).subscribe(()=>
+      this.navigate.navigate(['/tasks'])
+    );
   }
     
 }

@@ -2,11 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Task } from '../../services/task';
 import { TaskCard } from '../../components/task-card/task-card';
 import { TasksCreate } from '../tasks-create/tasks-create';
-import { TasksEdit } from "../tasks-edit/tasks-edit";
+import { RouterLink, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-tasks-list',
-  imports: [TaskCard, TasksCreate, TasksEdit],
+  imports: [TaskCard, TasksCreate, RouterLink, RouterModule],
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css'
 })
@@ -18,13 +18,6 @@ export class TasksList implements OnInit{
   ngOnInit(): void {
     this.loadTasks();
   }
-
-  loadTaskById(id:string){
-    this.taskservice.getTaskById(id).subscribe(task =>
-      console.log('task 1 :',task) 
-  );   
-  }
-
 
   loadTasks(){
      this.taskservice.getTasks().subscribe(
@@ -38,11 +31,9 @@ export class TasksList implements OnInit{
     this.taskservice.addTask(newTask).subscribe(savedTask => 
       this.tasks.update(allTasks => [...allTasks,savedTask])
     );
-    
   }
 
-  
-  updateTask(updatedtask :{title:string,completed:boolean}){
+  updateTask(updatedtask : {title:string,completed:boolean}){
 
   }
 
