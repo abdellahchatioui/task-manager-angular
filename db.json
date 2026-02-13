@@ -1,29 +1,14 @@
 {
   "tasks": [
     {
-      "title": "Code ",
+      "title": "Code",
       "completed": true,
       "id": "1"
     },
     {
-      "title": "back-end",
+      "title": "back-endd",
       "completed": false,
       "id": "2"
-    },
-    {
-      "id": "c715",
-      "title": "fff",
-      "completed": false
-    },
-    {
-      "id": "4433",
-      "title": "dada",
-      "completed": false
-    },
-    {
-      "id": "24b6",
-      "title": "aaaaaaa",
-      "completed": false
     }
   ]
 }

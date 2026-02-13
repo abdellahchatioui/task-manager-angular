@@ -11,33 +11,27 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './tasks-edit.css',
 })
 export class TasksEdit implements OnInit{
-  private router = inject(ActivatedRoute);
-  private navigate = inject(Router);
   private fb = inject(FormBuilder);
   private taskservice = inject(Task);
-  private taskId!: string;
-  
-  ngOnInit(): void {
-    this.taskId = String(this.router.snapshot.paramMap.get('id'));
-    this.loadTaskById(this.taskId);
-  }
+  task = input.required<task>();
+  taskUpdate = output<boolean>();
 
+  ngOnInit(): void {
+      this.taskForm.patchValue({
+        title : this.task().title,
+        completed : this.task().completed
+      })
+  }
+  
   taskForm = this.fb.group({
     title : ['',[Validators.required,Validators.minLength(3)]],
     completed : [false]
   })
 
-  loadTaskById(id : string){
-    this.taskservice.getTaskById(id).subscribe(task =>
-      this.taskForm.patchValue({ 
-        completed : task.completed,
-        title : task.title
-      }));   
-  }
-  
+
   submit(){    
-    this.taskservice.updateTask(this.taskId,this.taskForm.value as task).subscribe(()=>
-      this.navigate.navigate(['/tasks'])
+    this.taskservice.updateTask(this.task().id,this.taskForm.value as task).subscribe(()=>
+      this.taskUpdate.emit(false)
     );
   }
     

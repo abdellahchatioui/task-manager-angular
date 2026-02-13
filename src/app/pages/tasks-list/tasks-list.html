@@ -1,13 +1,12 @@
 
 <div>
-    <app-tasks-create (taskAdded)="addTask($event)"></app-tasks-create>
+    <app-tasks-create (taskAdded)="addTask($event)"></app-tasks-create><br> 
 </div>
 
 <div>
     @for (task of tasks(); track $index) {
         <li>{{$index+1}}</li>
         <app-task-card [task]="task" (taskDelete)="deleteTask($event)"></app-task-card>
-        <button [routerLink]="['/task/edit' , task.id]" >edit</button>
     }@empty {
         <li>Task Empty !!</li>
     }
