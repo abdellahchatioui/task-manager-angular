@@ -3,4 +3,8 @@
     <h4>{{ task().title }}</h4>
     <span>Status : {{ task().completed ? '✅ Completed  ' : 'In progress  ' }}</span>
     <button (click)="onDelete()">Delete 🗑️</button>
+    <button (click)="onClick.set(!onClick())">Edot</button>
+    @if (onClick()) {
+        <app-tasks-edit [task]="task()" (taskUpdate)="taskUpdate($event)"></app-tasks-edit>
+    }
 </div>

@@ -3,16 +3,17 @@ import { Task } from '../../services/task';
 import { TaskCard } from '../../components/task-card/task-card';
 import { TasksCreate } from '../tasks-create/tasks-create';
 import { RouterLink, RouterModule } from "@angular/router";
+import { TasksEdit } from '../tasks-edit/tasks-edit';
 
 @Component({
   selector: 'app-tasks-list',
-  imports: [TaskCard, TasksCreate, RouterLink, RouterModule],
+  imports: [TaskCard, TasksCreate,RouterLink, RouterModule],
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css'
 })
 export class TasksList implements OnInit{
   tasks = signal<task[]>([]);
-
+  onClick = signal<boolean>(false);
   private taskservice = inject(Task);
 
   ngOnInit(): void {
@@ -31,10 +32,7 @@ export class TasksList implements OnInit{
     this.taskservice.addTask(newTask).subscribe(savedTask => 
       this.tasks.update(allTasks => [...allTasks,savedTask])
     );
-  }
-
-  updateTask(updatedtask : {title:string,completed:boolean}){
-
+    console.log("click : ",this.onClick);
   }
 
   deleteTask(id : string){
